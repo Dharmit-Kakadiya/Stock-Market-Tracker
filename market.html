@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockVerse - Smart Investment Platform</title>
+    <link rel="website icon" type="png" href="images/logo.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url("images/Bg1.png");
+            color: #000000;
+            padding-top: 80px;
+        }
+
+        .stock-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .positive {
+            color: #28a745;
+        }
+
+        .negative {
+            color: #dc3545;
+        }
+
+        .jumbotron {
+            margin-top: 100px;
+            background-color: #abcef1 !important;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: #abcef1;
+            margin-bottom: 1rem;
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0080ff !important;
+        }
+
+        footer {
+            background-color: #85bed9;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img style="height: 60px;width: 200px;" src="images/Final.png" alt="StockVerse">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-light"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Markets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Stocck tracker -->
+    <div class="container p-2">
+        <div class="jumbotron text-center shadow-sm mb-4">
+            <h1 class="display-4 p-3">MARKET</h1>
+            <div class="input-group mt-3">
+                <input type="text" id="stockSymbol" class="form-control"
+                    placeholder="Enter stock symbol (e.g., RELIANCE.BSE)">
+                <div class="input-group-append">
+                    <button class="btn btn-primary p-2" id="addStockButton">Add Stock</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="stockGrid"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const API_KEY = 'MSF84L7KJOO9WAJX';
+        const stocksData = new Map();
+
+        async function fetchStockData(symbol) {
+            try {
+                const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_KEY}`);
+                const data = await response.json();
+                console.log(data);//debugging
+
+                if (data["Error Message"]) {
+                    throw new Error("Invalid stock symbol. Please check and try again.");
+                }
+                if (data["Note"]) {
+                    throw new Error("API limit reached. Please try again later.");
+                }
+                
+                const latestDate = Object.keys(data["Time Series (Daily)"])[0];
+                const latestData = data["Time Series (Daily)"][latestDate];
+
+                return {
+                    symbol: symbol,
+                    price: parseFloat(latestData["1. open"]).toFixed(2),
+                    change: (parseFloat(latestData["4. close"]) - parseFloat(latestData["1. open"])).toFixed(2),
+                    changePercent: (((parseFloat(latestData["4. close"]) - parseFloat(latestData["1. open"])) / parseFloat(latestData["1. open"])) * 100).toFixed(2) + '%',
+                    lastUpdated: latestDate
+                };
+            } catch (error) {
+                console.error("Error fetching stock data:", error);
+                alert(error.message);
+            }
+        }
+
+
+        function createStockCard(stockData) {
+            const isPositive = parseFloat(stockData.change) >= 0;
+            return `
+                <div class="col-md-4 mb-4">
+                    <div class="card stock-card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">${stockData.symbol}</h5>
+                            <p class="card-text">Price: $${stockData.price}</p>
+                            <p class="card-text ${isPositive ? 'positive' : 'negative'}">
+                                Change: ${isPositive ? '+' : ''}${stockData.change} (${stockData.changePercent})
+                            </p>
+                            <p class="card-text">Last Updated: ${stockData.lastUpdated}</p>
+                            <button class="btn btn-danger" onclick="removeStock('${stockData.symbol}')">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function addStock() {
+            const symbolInput = document.getElementById('stockSymbol');
+            const symbol = symbolInput.value.toUpperCase().trim();
+            if (!symbol) {
+                alert('Please enter a stock symbol');
+                return;
+            }
+
+            if (stocksData.has(symbol)) {
+                alert('Stock is already being tracked');
+                return;
+            }
+
+            try {
+                const stockData = await fetchStockData(symbol);
+                stocksData.set(symbol, stockData);
+
+                updateStockGrid();
+                symbolInput.value = '';
+            } catch (error) {
+                alert('Error fetching stock data. Please check the symbol and try again.');
+            }
+        }
+
+        function removeStock(symbol) {
+            stocksData.delete(symbol);
+            updateStockGrid();
+        }
+
+        function updateStockGrid() {
+            const stockGrid = document.getElementById('stockGrid');
+            stockGrid.innerHTML = '';
+
+            for (const stockData of stocksData.values()) {
+                stockGrid.innerHTML += createStockCard(stockData);
+            }
+        }
+
+        document.getElementById('addStockButton').addEventListener('click', addStock);
+    </script>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">About StockVerse</h5>
+                    <p class="text-muted">Your trusted source for market data <br> and investment insights.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Markets</a></li>
+                        <li><a href="about.html" class="text-muted text-decoration-none">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Connect With Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="https://www.instagram.com/stockveerse/" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/dharmit-kakadiya-2b4039297?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-muted"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61572902725647" class="text-muted"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

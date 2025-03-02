@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockVerse - Smart Investment Platform</title>
+    <link rel="website icon" type="png" href="logo.png">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url("images/Bg1.png");
+            color: #000000;
+            padding-top: 95px;
+        }
+
+        p {
+            background-color: #abcef1;
+            line-height: 1.6;
+            text-align: justify;
+
+        }
+
+        .navbar {
+            background-color: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: none;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0080ff !important;
+        }
+
+        footer {
+            background-color: #85bed9;
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .grid-about li {
+            margin: clamp(50px, 11vw, 200px) 0
+        }
+
+        .card-about {
+            display: flex;
+            gap: clamp(24px, 6vw, 6vw)
+        }
+
+        .card-about--reflect .card-about__left {
+            order: 1
+        }
+
+        .card-about>div {
+            flex: 1
+        }
+
+        .card-about__left {
+            display: flex;
+            align-items: center
+        }
+
+        .card-about__media {
+            display: block;
+            width: 100%;
+            height: 100%;
+            -o-object-fit: cover;
+            object-fit: cover;
+            transition: all .3s;
+            padding: auto 0;
+            border-radius: 15px;
+        }
+
+        a .card-about__media:hover {
+            filter: brightness(80%)
+        }
+
+        .card-about__title {
+            line-height: 120%
+        }
+
+        .card-about__info {
+            background-color: #abcef1;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        @media(max-width: 576px) {
+            .card-about {
+                flex-direction: column
+            }
+
+            .card-about--reflect .card-about__left {
+                order: -1
+            }
+
+            .card-about__media {
+                aspect-ratio: var(--img-resizing-site)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img style="height: 60px;width: 200px;" src="images/Final.png" alt="StockVerse">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-light"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="market.html">Markets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Content -->
+    <div class="text-center" style="background-color: #85bed9; padding: 15px 0;">
+        <h1 class="text-uppercase display-1"> <strong>Learn more<br>About us</strong></h1>
+        <span>Our Service, Name, and Product.</span>
+    </div>
+    <div>
+        <ul class="grid-about" style="list-style-type: none; padding-right: 2rem;">
+            <li>
+                <div>
+                    <div>
+                        <h2 class="heading-4"><strong>Welcome to StockVerse - Smart Investment Platform</strong>
+                        </h2>
+                        <h2 class="heading-6">At StockVerse, we believe that knowledge is power in the world of
+                            investing. Our platform is designed to empower investors of all levels with real-time data
+                            and market insights to make informed and confident investment
+                            decisions </strong>, “<strong>always evolving</strong>”.</h2>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="card-about">
+                    <div>
+                        <h2 class="heading-4"><strong>Our Mission</strong>
+                        </h2>
+                        <h2 class="heading-6">We strive to simplify stock market data and provide accurate,
+                            up-to-date financial information. Our goal is to bridge the gap between complex market
+                            trends and investors, ensuring that everyone can navigate the financial world with
+                            confidence.</h2>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="card-about">
+                    <div class="card-about__info">
+                        <!-- <p>Jury</p> -->
+                        <h3 class="heading-3 card-about__title"><strong>What StockVerse Offer</strong></h3>
+                        <br><br>
+                        <p>
+                            <strong>Real-Time Market Data</strong> – Stay updated with live stock prices, indices, and
+                            forex trends.
+                            <br><br>
+                            <strong>Market Insights & News</strong> – Get the latest financial news and expert analysis
+                            to make
+                            well-informed decisions.
+                            <br><br>
+                            <strong>User-Friendly Experience</strong> – A seamless, intuitive interface designed for
+                            both beginners and
+                            experienced investors.
+                        </p>
+                    </div>
+                    <div class="card-about__right">
+                        <img class="card-about__media" src="images/WWO.jpg" alt="IMG1">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="card-about card-about--reflect">
+                    <div class="card-about__left">
+                        <div class="card-about__info">
+                            <!-- <p>International Events</p> -->
+                            <h3 class="heading-3 card-about__title"><strong>What’s in a name?</strong></h3>
+                            <br>
+                            <p><strong>"Stock"</strong> symbolizes our core focus: providing real-time market dataś
+                                and stock price tracking.
+                                <br>
+                                <strong>"Verse"</strong> is derived from "universe", signifying the vast and
+                                interconnected world of finance, where investors, traders, and analysts come together to
+                                explore limitless possibilities
+                                <br><br>
+                                The name StockVerse embodies our vision: to create a dynamic, all-encompassing platform
+                                where users can seamlessly track and grow their investments. We are committed to
+                                bridging
+                                the gap between financial data and actionable investors, making investing
+                                more accessible, transparent, and efficient for everyone.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-about__right">
+                        <img class="card-about__media" src="images/StockVerse.png" alt="IMG2">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="card-about">
+                    <div class="card-about__info">
+                        <!-- <p>Jury</p> -->
+                        <h3 class="heading-3 card-about__title"><strong>Why Choose StockVerse?</strong></h3>
+                        <br><br>
+                        <p> <strong>Real-Time Market Data</strong> – Stay informed with up-to-the-minute stock prices,
+                            indices, and forex trends.
+                            <br><br>
+                            <strong>Market Insights & News</strong> – Get the latest financial updates, expert analysis,
+                            and in-depth stock market reports.
+                            <br><br>
+                            <strong>Mobile-Friendly & Responsive</strong> – Stay connected with StockVerse on any
+                            device, ensuring easy access to stock market trends anytime, anywhere.
+                            <br><br>
+                            <strong>Seamless User Experience</strong> – Designed with an intuitive and visually
+                            appealing interface for beginners traders.
+                            <br><br>
+
+                        </p>
+                    </div>
+                    <div class="card-about__right">
+                        <img class="card-about__media" src="images/WCU.jpg" alt="IMG1">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">About StockVerse</h5>
+                    <p class="text-muted" style="background-color:#85bed9 !important;">Your trusted source for market
+                        data <br> and investment insights.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted text-decoration-none">Home</a></li>
+                        <li><a href="market.html" class="text-muted text-decoration-none">Markets</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Connect With Us</h5>
+                    <div class="d-flex gap-3">
+                        <a href="https://www.instagram.com/stockveerse/" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/dharmit-kakadiya-2b4039297?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-muted"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61572902725647" class="text-muted"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
